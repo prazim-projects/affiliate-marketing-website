@@ -12,21 +12,48 @@ app.use(express.static(path.join(__dirname, '../public')));
 const usersFile = path.join(__dirname, 'users.json');
 let users = JSON.parse(fs.readFileSync(usersFile, 'utf-8'));
 
-// Register endpoint
+// Register endpoint with null protection
 app.post('/register', (req, res) => {
   const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username and password are required' });
+  // Check for null or empty values
+  if (!username || username.trim() === '') {
+    return res.status(400).json({ message: 'Username cannot be empty.' });
+  }
+  if (!password || password.trim() === '') {
+    return res.status(400).json({ message: 'Password cannot be empty.' });
   }
 
+  // Check if user already exists
   if (users.find((user) => user.username === username)) {
-    return res.status(400).json({ message: 'User already exists' });
+    return res.status(400).json({ message: 'User already exists.' });
   }
 
+  // Add the user
   users.push({ username, password });
   fs.writeFileSync(usersFile, JSON.stringify(users));
-  res.status(201).json({ message: 'User registered successfully' });
+  res.status(201).json({ message: 'User registered successfully.' });
+});
+
+// Login endpoint with null protection
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Check for null or empty values
+  if (!username || username.trim() === '') {
+    return res.status(400).json({ message: 'Username cannot be empty.' });
+  }
+  if (!password || password.trim() === '') {
+    return res.status(400).json({ message: 'Password cannot be empty.' });
+  }
+
+  // Check if user exists
+  const user = users.find((user) => user.username === username && user.password === password);
+  if (!user) {
+    return res.status(401).json({ message: 'Invalid username or password.' });
+  }
+
+  res.status(200).json({ message: 'Login successful.' });
 });
 
 // Login endpoint
