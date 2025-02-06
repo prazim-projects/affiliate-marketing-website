@@ -1,0 +1,12 @@
+{
+    "name": "affiliate-marketing-website",
+    "version": "1.0.0",
+    "description": "A simple affiliate marketing website with user authentication.",
+    "main": "server/server.js",
+    "scripts": {
+      "start": "node server/server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2"
+    }
+  }
