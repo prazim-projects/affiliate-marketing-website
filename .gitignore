@@ -7,4 +7,5 @@ media
 .env
 ./affMrkt/node_modules
 ./affmrkt/.vscode
-./affmrkt_backend/affiliate_blogs/migrations/*
+affmrkt_backend/blog/migrations/*
+affmrkt_backend/affmrkt_backend/settings.py
