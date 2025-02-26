@@ -1,0 +1,10 @@
+__pycache__
+logs
+media
+
+.sqlite3
+
+.env
+./affMrkt/node_modules
+./affmrkt/.vscode
+./affmrkt_backend/affiliate_blogs/migrations/*
