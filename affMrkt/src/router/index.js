@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Products from '../views/Products.vue'
 import Reset from '../views/Reset.vue'
 import Register from '../views/Register.vue'
+import CategoryView from "@/views/main/Category.vue";
+import TagView from "@/views/main/Tag.vue";
+import AllCategoriesView from "@/views/main/AllCategories.vue";
+import AllTagsView from "@/views/main/AllTags.vue";
+import PostView from "@/views/posts.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,6 +16,26 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/category',
+      name: "category",
+      component: CategoryView
+    },
+    {
+      path: '/tag',
+      name: 'tag',
+      component: TagView
+    },
+    {
+      path: '/catagories',
+      name: "Categories",
+      component: AllCategoriesView
+    },
+    {
+      path: '/tags',
+      name: "Tags",
+      component: AllTagsView
     },
     {
       path: '/about',
@@ -32,9 +57,9 @@ const router = createRouter({
       component: () => import('../views/Login.vue')
     },
     {
-      path: '/products',
-      name: 'prods',
-      component: Products
+      path: '/posts',
+      name: 'posts',
+      component: PostView
     },
     {
       path: '/reset-pass',

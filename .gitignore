@@ -9,3 +9,5 @@ media
 ./affmrkt/.vscode
 affmrkt_backend/blog/migrations/*
 affmrkt_backend/affmrkt_backend/settings.py
+affmrkt_backend/mediafiles/site/logo/*
+affmrkt_backend/time*

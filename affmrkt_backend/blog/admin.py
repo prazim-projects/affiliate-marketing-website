@@ -1,14 +1,30 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from blog import models
+from .models import *
 
 # Register your models here.
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ( 'username', 'first_name', 'last_name', 'email', 'date_joined')
 
-admin.site.register(models.User, UserAdmin)
-admin.site.register(models.Site)
-admin.site.register(models.Category)
-admin.site.register(models.Tag)
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
 
-admin.site.register(models.Post)
-admin.site.register(models.Comment)
+class TagAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+class PostAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+    list_display = ('title', 'is_published', 'is_featured', 'created_at')
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('__str__','created_at', 'is_approved')
+
+
+admin.site.register(Site)
+admin.site.register(User, UserAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)
+

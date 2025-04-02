@@ -13,20 +13,19 @@ class Site(models.Model):
 
     class Meta:
         verbose_name = 'site'
-        verbose_name_plural = '1. Site'
 
     def __str__(self):
         return self.name
 
-class User(AbstractUser):
 
+class User(AbstractUser):
     username = models.CharField(max_length = 50, blank = True, null = True, unique = True)
     email = models.EmailField(max_length=50, unique = True)
     avatar = models.ImageField(upload_to='users/avatars/%y/%m/%d/')
     bio = models.TextField(max_length=500, null=True)
     location = models.CharField(max_length=30, null=True)
     website = models.CharField(max_length=100, null=True)
-    joined_date = models.DateField(auto_now_add=True)
+    date_joined = models.DateField(auto_now_add=True)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username',]
@@ -35,7 +34,8 @@ class User(AbstractUser):
         verbose_name = 'user'
 
     def __str__(self):
-        self.username
+        return self.username
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
@@ -46,30 +46,31 @@ class Category(models.Model):
         verbose_name = 'category'
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField()
     description = models.TextField()
+    category = models.ManyToManyField(Category)
 
     class Meta:
         verbose_name = 'tag'
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True)
-    content = RichTextField()
+    slug = models.SlugField()
+    content = models.TextField(max_length=2000, default='lorem ipsum dolor sit amet ...', null=False)
     featured_image = models.ImageField(
-        upload_to='posts/featured_images/%Y/%m/%d/')
+        upload_to='mediafiles/posts/featured_images/%Y/%m/%d/')
     is_published = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateField(auto_now=True)
 
     # Each post can receive likes from multiple users, and each user can like multiple posts
@@ -80,7 +81,7 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True)
     tag = models.ManyToManyField(Tag)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='posted_by')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = 'post'

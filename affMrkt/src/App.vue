@@ -1,15 +1,18 @@
 <template>
-
     <div class="app">
         <Sidebar />
         <RouterView />
+        
     </div>  
+    <footer>
+        <Footer />
+    </footer>
 </template>
 
 <script lang="js" setup>
 import Sidebar from './components/Sidebar.vue';
 import { RouterView } from 'vue-router';
-
+import Footer from './components/Footer.vue'
 </script>
 
 <style lang="scss">
@@ -37,9 +40,10 @@ body {
 
 .app{
     display: flex;
+    flex-direction: row;
     
     main{
-        flex: 1 1 0;
+        flex: 1 3 1;
         padding: 2rem;
     }
 
@@ -55,6 +59,11 @@ body {
     background: none;
 }
 
+footer{
+    background-color: var(--dark);
+    color: aliceblue;
+
+}
 
 
 </style>

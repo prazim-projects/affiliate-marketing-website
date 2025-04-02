@@ -1,29 +1,33 @@
 import graphene
 from graphene_django import DjangoObjectType
-from . import models
+from .models import *
 
 class SiteType(DjangoObjectType):
     class Meta:
-        model = models.Site
-
+        model = Site
 
 class UserType(DjangoObjectType):
     class Meta:
-        model = models.User
-
-class CategoryType(DjangoObjectType):
-    class Meta:
-        model = models.Category
+        model = User
+        fields = ('id', 'username', 'email', 'avatar')
 
 class TagType(DjangoObjectType):
     class Meta:
-        model = models.Tag
+        model = Tag
+        fields = ('name', 'slug', 'category')
 
 class PostType(DjangoObjectType):
     class Meta:
-        model = models.Post
+        model = Post
+        fields = "__all__"
 
-class Comment(DjangoObjectType):
+class CategoryType(DjangoObjectType):
     class Meta:
-        model = models.Comment
+        model = Category
+        fields = ('name', 'slug')
+
+
+class CommentType(DjangoObjectType):
+    class Meta:
+        model = Comment
 

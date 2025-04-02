@@ -6,10 +6,11 @@ import { RouterLink } from 'vue-router';
 const tabs = ref({
   Home: ['/','home' ],
   About: ['/about', 'info'],
-  Login: ['/login', 'login'],
   Register: ['/register', 'account_circle'],
-  Products: ['/products', 'linked_services'],
+  Login: ['/login', 'login'],
+  Posts: ['/posts', 'linked_services'],
   Reset_Password: ['/reset-pass', "lock_open"],
+  
   
 })
 

@@ -3,13 +3,18 @@ from . import models
 from . import types
 
 class Query(graphene.ObjectType):
-    site = graphene.Field(types.SiteType)
+    # queries and mutaions
+    # site = graphene.Field(types.SiteType)
+    # user = graphene.field(types.UserType)
+    # post = graphene.field(types.PostType)
+    # comment = graphene.field(types.CommentType)
+
     all_posts = graphene.List(types.PostType)
     all_categories = graphene.List(types.CategoryType)
     all_tags = graphene.List(types.TagType)
-    posts_by_category = graphene.List(types.PostType, category=graphene.String())
-    posts_by_tag = graphene.List(types.PostType, tag=graphene.String())
-    posts_by_slug = graphene.Field(types.PostType, slug=graphene.String())
+    posts_by_category = graphene.List(types.PostType, category=graphene.Int())
+    posts_by_tag = graphene.List(types.PostType, tag=graphene.Int())
+    posts_by_slug = graphene.List(types.PostType, slug=graphene.String())
 
 
     def resolve_site(root, info):
@@ -33,18 +38,18 @@ class Query(graphene.ObjectType):
         )
     
     def resolve_posts_by_category(root, info, category):
-        return (
-            models.Post.objects.filter(category_slug_iexact=category)
-        )
+        try:
+            return models.Post.objects.filter(category=category)
+        except Post.DoesNotExist:
+            return None
 
     def resolve_posts_by_tag(root, info, tag):
-        return (
-            models.Post.objects.filter(tag_slug_iexact=tag)
-        )
+        try:
+            return models.Post.objects.get(tag=tag)
+        except Post.DoesNotExist:
+            return None
     
     def resolve_posts_by_slug(root, info, slug):
         return {
-            models.Post.objects.get(slug_iexact=slug)
+            models.Post.objects.get(slug=slug)
         }
-
-    
