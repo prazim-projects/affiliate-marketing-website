@@ -1,6 +1,6 @@
 import graphene
 from . import queries, models, types
-
+# from graphene_file_upload_scalars import Upload
 
 
 class UserMutation(graphene.Mutation):
@@ -17,7 +17,8 @@ class UserMutation(graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, username, email, password):
-        user = models.User(username=username, email=email, password=password)
+        user = models.User.create(username=username, email=email)
+        user.set_password(password)
         user.bio = "Change me"
         user.save()
 
@@ -32,7 +33,7 @@ class updateProfile(graphene.Mutation):
         username = graphene.String(required=False)
         email = graphene.String(required=False)
         password = graphene.String(required=False)
-        # avatar = graphene.Field(required=False)
+        # avatar = Upload()
 
     @classmethod
     def mutate(cls, root, info, id, bio, username, email, password):
@@ -46,14 +47,28 @@ class updateProfile(graphene.Mutation):
         return updateProfile(profile=profToUpdate)
         
 
-# class PostCreateMutation(graphene.Mutation):
-#     class Arguments:
-#         title =
-#         content
-#         category 
-    
-#     post = graphene.Field(types.PostType)
+class PostCreateMutation(graphene.Mutation):
+    class Arguments:
+        title = graphene.String(required=True)
+        content = graphene.String()
+        tag = graphene.String()
+        created_at = graphene.String(required=True)
+        # featured_image=Upload()
+ 
+    post = graphene.Field(types.PostType)
+
+    @classmethod
+    def mutate(cls, root, info, title, content, tag, created_at):
+        newPost=models.Post.objects.create(
+            title=title,
+            content=content,
+            # featured_image=featured_image,
+            user=info.context.user
+        )
+        newPost.created_at = TIME_ZONE.now()
+        return PostCreateMutation(post=newPost)
 
 class Mutation(graphene.ObjectType):
-        createUSer = UserMutation.Field()
-        updateProfile = updateProfile.Field()
+    createUSer = UserMutation.Field()
+    updateProfile = updateProfile.Field()
+    PostCreateMutation = PostCreateMutation.Field()

@@ -2,17 +2,13 @@
     <h2> Register</h2>
     <main class="register-page">
           <div class="form">
-            <form id="loginForm" v-for="(value, key) in input_fields">
-              <label :for="value">{{value}}</label>
-              <input type="text" :id="value" name="username" :required="`Enter your ${key[1]}`">
-              
-              <div id="twoStepVerification" style="display: none;">
-                <p>Enter the verification code sent to your email:</p>
-                <input type="text" id="verificationCode" required placeholder="Verification Code">
-                <button id="verifyCodeButton">Verify</button>
+            <form id="reg-form">
+              <div id="input" v-for="(value, key) in input_fields">
+                <label >{{value[1]}}: 
+                  <input  :type="value[1]" v-model="value[2]" :required="value[0]">
+                </label>
               </div>
-              
-              <button type="submit">Login</button>
+              <button @click="userCreate()" type="submit">SIGN UP</button>                        
             </form>
           </div>
     </main>
@@ -29,47 +25,72 @@ import gql from 'graphql-tag'
 
 
 export default {
+
+
   setup () {
 
     const input_fields = ref({
-    username: [true, 'username'],
-    userMail: [true, 'email'],
-    password: [true, 'password'],
+    username: [true, 'username', 'uName'],
+    userMail: [true, 'email', 'uMail'],
+    password: [true, 'password', 'uPassword'],
 
 })
 
-    const username = ref('')
-    const email = ref('')
-    const password = ref('')
+    const uName = ref('')
+    const uMail = ref('')
+    const uPassword = ref('')
 
     const { mutate: userCreate } = useMutation(gql`
       mutation userCreate($username: String!, $email: String!, $password: String!){
         userCreate (username: $username, email: $email, password: $passWord ){
-          id     
+          id
+          username
+          email
+          passWord
         }
       }
     `, () => ({
       variables: {
-        
+        username: uName.value,
+        email: uMail.value,
+        password: uPassword.value,
       },
-    }))
+    }))  
 
-    const registerUser = async () => { // Wrap the mutation call in a function
-      try {
-        await userCreate({
-          username: username.value,
-          email: email.value,
-          password: password.value // Use the correct password variable
-        });
-        // Handle success (e.g., redirect)
-      } catch (error) {
-        // Handle error (e.g., display error message)
-        console.error("Registration failed:", error);
-      }
-    };
-    
-
+    return {
+      input_fields,
+      uName,
+      uMail,
+      uPassword,
+      userCreate,
+    }
   },
 }
 </script>
 
+<style lang="scss" scoped>
+
+form{
+  position: relative;
+  width: 300px;
+  height: 400px;
+  
+  div > label {
+    width: 60px;
+    height: 60px;
+  }
+
+
+
+  button {
+    position: relative;
+    right: -61px;
+    cursor: pointer;
+    width: 50px;
+    background-color: var(--grey);
+  }
+}
+
+
+
+</style>

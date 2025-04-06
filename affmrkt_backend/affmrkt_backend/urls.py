@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 from graphene_django.views import GraphQLView
 
 urlpatterns = [
-    path('blog/', include('blog.urls')),
+    path('blog/', include('siteMgmt.urls')),
     path('admin/', admin.site.urls),
     path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True)))
 
