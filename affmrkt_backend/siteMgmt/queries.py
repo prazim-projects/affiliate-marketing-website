@@ -1,14 +1,10 @@
 import graphene
+
 from . import models
 from . import types
 
 class Query(graphene.ObjectType):
-    # queries and mutaions
-    # site = graphene.Field(types.SiteType)
-    # user = graphene.field(types.UserType)
-    # post = graphene.field(types.PostType)
-    # comment = graphene.field(types.CommentType)
-
+    site = graphene.Field(types.SiteType)
     all_posts = graphene.List(types.PostType)
     all_categories = graphene.List(types.CategoryType)
     all_tags = graphene.List(types.TagType)

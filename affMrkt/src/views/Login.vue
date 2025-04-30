@@ -1,28 +1,33 @@
 <template>
-    <main class="login-page">
-        <h2> Login </h2>
-        <main>
-            <form id="loginForm">
-              <label for="username">Username:</label>
-              <input type="text" id="username" name="username" required="Enter your username">
-              
-              <label for="password">Password:</label>
-              <input type="password" id="password" name="password" required="Enter your password">
-        
-              <div id="twoStepVerification" style="display: none;">
-                <p>Enter the verification code sent to your email:</p>
-                <input type="text" id="verificationCode" required placeholder="Verification Code">
-                <button id="verifyCodeButton">Verify</button>
-              </div>
-              
-              <button type="submit">Login</button>
-            </form>
-          </main>
-    </main>
+  
+<main class="form-signin w-100 m-auto">
+<form>
+  <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+  <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
+  <div class="form-floating">
+    <input type="username" class="form-control" id="floatingInput" placeholder="Abebe-Egele">
+    <label for="floatingInput">Email address</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
+
+  <div class="form-check text-start my-3">
+    <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+    <label class="form-check-label" for="flexCheckDefault">
+      Remember me
+    </label>
+  </div>
+  <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+  <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
+</form>
+</main>
 </template>
 
 <script setup>
+
 
 </script>
 

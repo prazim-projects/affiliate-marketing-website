@@ -1,66 +1,11 @@
-<template>
-  <main>
-    <div class="columns">
-      <div class="column-left">
-        <header>
-          <h1>Affiliate Product Posts</h1>
-        </header>
-        <div v-if="loading">Loading...</div>
-        <div v-else-if="error">Error: {{ error.message }}</div>
-        <div v-else-if="result && posts" class="posts">
-          <div v-for="post of posts" class="post">
-            <h3>{{ post.title }}</h3>
-            <img :src="`http://localhost:8000/mediafiles/${post.featuredImage}`" alt="">
-            <p>{{post.content}}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="column-right">
-        <div class="featuredPosts" v-for="post of posts">
-          <div v-if="post.isFeatured">
-            <h3>{{ post.title }}</h3>
-            <img :src="`http://localhost:8000/mediafiles/${post.featuredImage}`" alt="" srcset="">
-            <p>{{post.content}}</p>
-          </div>          
-        </div>
-      </div>
-
-
-    </div>  
-</main>
-
-</template>
-
 <script>
 import { computed, watch} from 'vue';
 import { useQuery } from '@vue/apollo-composable';
-import gql from 'graphql-tag'
+import { all_posts } from '@/queries'
 
 export default {
   setup () {
-    const {result, loading, error } = useQuery(gql`
-        query Queries {
-        allPosts {
-          id
-          category {
-            slug
-          }
-          content
-          featuredImage
-          isFeatured
-          user {
-            username
-          }
-          title
-        }
-}`)
-
-
-// function fullT(sevice, servicePort, path){
-//   var full_t = `http://${service}:${servicePort}/${path}`
-//   return full_t
-// }
+    const {result, loading, error } = useQuery(all_posts)
 
 const posts = computed(() => result.value?.allPosts ?? [])
 
@@ -80,18 +25,53 @@ return {
 }
 </script>
 
+
+<template>
+  <main>
+    <div class="columns container-fluid">
+      <div class="column-left">
+        <header>
+          <h1>Affiliate Product Posts</h1>
+        </header>
+        <div v-if="loading">Loading...</div>
+        <div v-else-if="error">Error: {{ error.message }}</div>
+        <div v-else-if="result && posts" class="posts">
+          <div v-for="post of posts" class="post">
+            <h3>{{ post.title }}</h3>
+            <img :src="`http://localhost:8000/media/${post.featuredImage}`" alt="">
+            <p>{{post.content}}</p>
+            <button @click="expand"> READ </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="column-right">
+        <div class="featuredPosts" v-for="post of posts">
+          <div v-if="post.isFeatured">
+            <h3>{{ post.title }}</h3>
+            <img :src="`http://localhost:8000/media/${post.featuredImage}`" alt="" srcset="">
+            <p>{{post.content}}</p>
+          </div>          
+        </div>
+      </div>
+
+
+    </div>  
+</main>
+
+</template>
+
 <style lang="scss" scoped>
 
 main{
   width: 100%;
+  margin-bottom:5px;
+  padding: 5px 7px;
   .columns{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 
-    div{
-      width: auto;
-    }
 
     .column-left{
       position: relative;
@@ -109,9 +89,22 @@ main{
       display: flex;
       flex-direction: column;
       width: 50%;
+      margin-bottom: 10px;
     }
-
-   
+    button{
+      margin-top: 5px;
+      border-radius: 65px;
+      width: 100px;
+      height: 20px;
+      background-color: blueviolet;
+    }
+    button:hover{
+      border-radius: 60px;
+    }
+    .post{
+      margin-bottom: 10px;
+      padding: 5px 5px;
+    }
   }
   
 }

@@ -22,13 +22,13 @@ class User(AbstractUser):
     username = models.CharField(max_length = 50, blank = True, null = True, unique = True)
     email = models.EmailField(max_length=50, unique = True)
     avatar = models.ImageField(upload_to='users/avatars/%y/%m/%d/')
-    bio = models.TextField(max_length=500, null=True)
+    bio = models.TextField(max_length=500, null=True, default="Change Me")
     location = models.CharField(max_length=30, null=True)
     website = models.CharField(max_length=100, null=True)
     date_joined = models.DateField(auto_now_add=True)
     
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username',]
+    USERNAME_FIELD = 'username'
+    EMAIL_FIELD = 'email'
     
     class Meta:
         verbose_name = 'user'
@@ -67,7 +67,7 @@ class Post(models.Model):
     slug = models.SlugField()
     content = models.TextField(max_length=2000, default='lorem ipsum dolor sit amet ...', null=False)
     featured_image = models.ImageField(
-        upload_to='mediafiles/posts/featured_images/%Y/%m/%d/')
+        upload_to='posts/featured_images/%Y/%m/%d/')
     is_published = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -88,6 +88,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def display_conent(self):
+        if len(self.content) > 50:
+            return self.content[:50] + '...'
+        else:
+            return self.content
 
     def get_number_of_likes(self):
         return self.likes.count()

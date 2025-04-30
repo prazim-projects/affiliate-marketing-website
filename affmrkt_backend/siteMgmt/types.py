@@ -5,11 +5,11 @@ from .models import *
 class SiteType(DjangoObjectType):
     class Meta:
         model = Site
+        fields = "__all__"
 
 class UserType(DjangoObjectType):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'avatar')
 
 class TagType(DjangoObjectType):
     class Meta:

@@ -1,12 +1,12 @@
 <template>
     <div class="app">
-        <Sidebar />
-        <RouterView />
-        
+        <div class="sidebar"><Sidebar /></div>
+        <RouterView />  
     </div>  
     <footer>
         <Footer />
     </footer>
+   
 </template>
 
 <script lang="js" setup>
@@ -41,10 +41,9 @@ body {
 .app{
     display: flex;
     flex-direction: row;
-    
     main{
-        flex: 1 3 1;
         padding: 2rem;
+
     }
 
     @media (max-width: 768px) {
@@ -62,7 +61,7 @@ body {
 footer{
     background-color: var(--dark);
     color: aliceblue;
-
+    
 }
 
 

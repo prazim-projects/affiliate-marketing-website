@@ -4,7 +4,10 @@ import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import App from './App.vue'
 import router from './router'
+import './style.css'
 import "bootstrap"
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 const httpLink = new createHttpLink({
     uri: 'http://localhost:8000/graphql'

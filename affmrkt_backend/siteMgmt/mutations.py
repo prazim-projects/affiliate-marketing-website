@@ -1,31 +1,32 @@
 import graphene
 from . import queries, models, types
-# from graphene_file_upload_scalars import Upload
+import graphql_jwt
+from graphene_file_upload.scalars import Upload
 
 
 class UserMutation(graphene.Mutation):
     #define response of mutation
-    user = graphene.Field(types.UserType, id=graphene.Int())
+    user = graphene.Field(types.UserType)
+    ok = graphene.Boolean()
 
     class Arguments:
         #input arguments for this mustation
         username = graphene.String(required=True)
         email = graphene.String(required=True)
         password = graphene.String(required=True)
-        created_date = graphene.String(required=True)
-    
+     
 
     @classmethod
     def mutate(cls, root, info, username, email, password):
-        user = models.User.create(username=username, email=email)
+        user = models.User(username=username, email=email)
         user.set_password(password)
-        user.bio = "Change me"
+        ok = True
         user.save()
 
-        return UserMutation(user=user)
+        return UserMutation(user=user, ok=ok)
 
 class updateProfile(graphene.Mutation):
-    profile = graphene.Field(types.UserType, id=graphene.Int())
+    profile = graphene.Field(types.UserType)
 
     class Arguments:
         id = graphene.ID(required=True)
@@ -33,7 +34,7 @@ class updateProfile(graphene.Mutation):
         username = graphene.String(required=False)
         email = graphene.String(required=False)
         password = graphene.String(required=False)
-        # avatar = Upload()
+        avatar = Upload()
 
     @classmethod
     def mutate(cls, root, info, id, bio, username, email, password):
@@ -53,7 +54,7 @@ class PostCreateMutation(graphene.Mutation):
         content = graphene.String()
         tag = graphene.String()
         created_at = graphene.String(required=True)
-        # featured_image=Upload()
+        featured_image=Upload()
  
     post = graphene.Field(types.PostType)
 
@@ -62,13 +63,18 @@ class PostCreateMutation(graphene.Mutation):
         newPost=models.Post.objects.create(
             title=title,
             content=content,
-            # featured_image=featured_image,
+            featured_image=featured_image,
             user=info.context.user
         )
         newPost.created_at = TIME_ZONE.now()
         return PostCreateMutation(post=newPost)
 
 class Mutation(graphene.ObjectType):
-    createUSer = UserMutation.Field()
+    #auth
+    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    verify_token = graphql_jwt.Verify.Field()
+    refresh_token = graphql_jwt.Refresh.Field()
+
+    createUser = UserMutation.Field()
     updateProfile = updateProfile.Field()
     PostCreateMutation = PostCreateMutation.Field()

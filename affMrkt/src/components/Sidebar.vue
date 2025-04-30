@@ -6,16 +6,17 @@ import { RouterLink } from 'vue-router';
 const tabs = ref({
   Home: ['/','home' ],
   About: ['/about', 'info'],
+  Posts: ['/posts', 'linked_services'],
   Register: ['/register', 'account_circle'],
   Login: ['/login', 'login'],
-  Posts: ['/posts', 'linked_services'],
+  
   Reset_Password: ['/reset-pass', "lock_open"],
   
   
 })
 
 
-const expanded = ref(false)
+const expanded = ref(true)
 
 const toggleMenu = () => {
   expanded.value = !expanded.value
@@ -25,7 +26,7 @@ const toggleMenu = () => {
 <template>
   <aside :class="`${expanded && 'is-expanded'}`">
     <div class="logo"> 
-      <img src="../assets/logo.svg" alt="" class="src">
+      <img src="../assets/logoAff.png" alt="" class="src">
     </div>
     <div class="menu-toggle-wrap">
       <button @click="toggleMenu" class="menu-toggle"> 
@@ -54,7 +55,7 @@ const toggleMenu = () => {
 
   background-color: var(--dark);
   color: var(--light);
-  width: calc(2rem + var(--sidebar-width-min));
+  width: calc(4rem + var(--sidebar-width-min));
   overflow: hidden;
   min-height: 100vh;
   padding: 1rem;
@@ -64,7 +65,8 @@ const toggleMenu = () => {
     margin-bottom: 1rem;
 
     img{
-      width: 2rem;
+      width: 80px;
+      height: 50px;
     }
 
   }
@@ -110,9 +112,9 @@ h3, .text{
     .button{
       display: flex;
       align-items: center;
-      text-decoration: solid;
+      text-decoration: dashed;
 
-      padding: 0.5rem 1rem;
+      padding: 1.5rem 1rem;
       transition: 0.2s ease-out;
 
       .material-icons{

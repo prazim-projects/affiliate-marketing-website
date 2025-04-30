@@ -9,7 +9,7 @@ const contact_info = ref({
 
 const socials = ref ({
     'twitter(X)': 'x.com/bealprazim',
-    telegram : '@ethiopiathepromiseland',
+    telegram : 't.me/ethiopiathepromiseland',
     linkedIn: 'linkedin.com/..'
 })
 </script>
@@ -20,12 +20,14 @@ const socials = ref ({
         <div class="columns">
             <div class="column">
                 <div class="rows" v-for="(value, key) of contact_info">
-                    <p> {{ key }} : {{ value }}</p>
+                    <div class="col">
+                        <a :href="value"><p> {{ key }} : {{ value }} </p></a>
+                    </div>
                 </div>
             </div>   
             <div class="column">
                 <div class="rows" v-for="(value, key) of socials">
-                    <p> {{key}} : {{value}}</p>
+                    <a :href="value"><p> {{key}} : {{value}}</p></a>
                 </div>
             </div>
         </div>
@@ -35,13 +37,21 @@ const socials = ref ({
 <style lang="scss" scoped>
 
 .columns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+        
+    .column{
         display: flex;
         flex-direction: column;
-        
-        .column{
-            display: flex;
-            flex-direction: row;
-        }
+        padding: 5px 7px;
+        margin: 5px;
+    }
+
+    a{
+        color: antiquewhite;
+    }
+    
 }
 
 </style>

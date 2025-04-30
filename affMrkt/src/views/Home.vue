@@ -1,5 +1,10 @@
+<script setup>
+
+</script>
+
+
 <template>
-    <main class="Home-page">
+    <main class="Home-page container-fluid">
         <h2>Home</h2>
         <section class="about">
             <h2>Why Join Us?</h2>
@@ -31,10 +36,22 @@
             </ul>
         </section>
     </main>
+<div class="container id-contain">
+    <div id="ads">
 
+    </div>
+</div>
 </template>
 
-<script setup>
+<style lang="css" scoped>
+    .id-contain{
+        display: flex;
+        flex-direction: column;
 
-</script>
-
+        #ads{
+            width: 200px;
+            height: 200px;
+            background-color: #70ff70;
+        }
+    }
+</style>
