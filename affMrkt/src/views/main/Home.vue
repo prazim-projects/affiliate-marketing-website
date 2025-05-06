@@ -38,20 +38,29 @@
     </main>
 <div class="container id-contain">
     <div id="ads">
-
+        <p><em> Ads</em></p>
+        <p><em> Ads</em></p>
+        <p><em> Ads</em></p>
     </div>
 </div>
 </template>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
     .id-contain{
         display: flex;
         flex-direction: column;
 
         #ads{
             width: 200px;
-            height: 200px;
-            background-color: #70ff70;
+            height: 800px;
+            background-color: #4b949c;
+
+            p{
+                color:#066d75;
+                text-shadow: 20cap;
+                text-size-adjust: 50px;
+                
+            }
         }
     }
 </style>

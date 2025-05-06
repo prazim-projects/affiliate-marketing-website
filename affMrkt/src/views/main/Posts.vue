@@ -2,8 +2,15 @@
 import { computed, watch} from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { all_posts } from '@/queries'
+import Content from '../../components/Content.vue';
+import Category from '../main/Category.vue';
 
 export default {
+  components : {
+    Content,
+    Category
+  },
+
   setup () {
     const {result, loading, error } = useQuery(all_posts)
 
@@ -13,6 +20,7 @@ watch(result, value => {
   console.log(value)
 
 })
+
 
 return {
   posts,
@@ -36,11 +44,18 @@ return {
         <div v-if="loading">Loading...</div>
         <div v-else-if="error">Error: {{ error.message }}</div>
         <div v-else-if="result && posts" class="posts">
-          <div v-for="post of posts" class="post">
-            <h3>{{ post.title }}</h3>
-            <img :src="`http://localhost:8000/media/${post.featuredImage}`" alt="">
-            <p>{{post.content}}</p>
-            <button @click="expand"> READ </button>
+          <div class="post">
+            <!-- <img :src="`http://localhost:8000/media/${post.featuredImage}`" alt=""> -->
+
+            <Content
+            v-for="post of posts" 
+            :id="post.id"
+            :title="post.title"
+            :Category="post.Category"
+            :content="post.content"
+            :featuredImage="post.featuredImage"
+            :author="post.user.username"
+            />
           </div>
         </div>
       </div>

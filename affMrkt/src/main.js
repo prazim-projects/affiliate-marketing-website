@@ -3,6 +3,7 @@ import { createApp, provide, h } from 'vue'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import App from './App.vue'
+import { createPinia } from 'pinia'
 import router from './router'
 import './style.css'
 import "bootstrap"
@@ -29,4 +30,4 @@ const app = createApp({
     },
 
     render: () => h(App),
-}).use(router).mount('#app')
+}).use(createPinia()).use(router).mount('#app')

@@ -1,7 +1,7 @@
 <script>
 import { computed, watch } from 'vue';
 import { useQuery } from '@vue/apollo-composable';
-import { site_info } from '../queries';
+import { site_info } from '../../queries';
 
 export default{
     setup(){

@@ -19,10 +19,11 @@ from django.urls import path, include
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from graphene_django.views import GraphQLView
+from graphene_file_upload.django import FileUploadGraphQLView
 
 urlpatterns = [
     path('blog/', include('siteMgmt.urls')),
     path('admin/', admin.site.urls),
-    path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path("graphql", csrf_exempt(FileUploadGraphQLView.as_view(graphiql=True))),
 
 ]

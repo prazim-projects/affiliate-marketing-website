@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Reset from '../views/Reset.vue'
-import Register from '../views/Register.vue'
+import Home from '../views/main/Home.vue'
+import Reset from '../views/user/Reset.vue'
+import Register from '../views/user/Register.vue'
 import CategoryView from "@/views/main/Category.vue";
 import TagView from "@/views/main/Tag.vue";
 import AllCategoriesView from "@/views/main/AllCategories.vue";
 import AllTagsView from "@/views/main/AllTags.vue";
-import PostView from "@/views/posts.vue"
+import PostView from "@/views/main/posts.vue"
 
 
 
@@ -44,7 +44,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/About.vue'),
+      component: () => import('../views/main/About.vue'),
     },
     {
       path: '/register',
@@ -55,7 +55,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login-page',
-      component: () => import('../views/Login.vue')
+      component: () => import('../views/user/Login.vue')
     },
     {
       path: '/posts',

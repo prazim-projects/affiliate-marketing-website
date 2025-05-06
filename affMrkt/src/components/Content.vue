@@ -1,25 +1,17 @@
 <script setup>
 
-import { reactive } from 'vue';
-
-const obj = reactive({
-    
-})
-
+const posts = defineProps(['title','category','content','id','featuredImage', 'user'])
+console.log(posts.id)
 </script>
 
 <template>
-
-    <div class="container">
-        <h1> Pops and Affiliates</h1>
-        <div class="container-fluid cards">
-            <div>
-                 
-            </div>
-
-        </div>
+    <div id="card">
+        <h3>{{ posts.title }}</h3>
+        <p><strong>Written by user {{posts.user}}</strong></p>
+        <img :src="posts.featuredImage" alt="featured image for post">
+        <p> {{ posts.content}}</p>
+        <button @click="expand"> READ </button>  
     </div>
-
 </template>
 
 <style scoped lang="scss">
