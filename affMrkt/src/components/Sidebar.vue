@@ -7,8 +7,10 @@ const tabs = ref({
   Home: ['/','home' ],
   About: ['/about', 'info'],
   Posts: ['/posts', 'linked_services'],
+  // Categories: ['`/Categories', ''],
   Register: ['/register', 'account_circle'],
   Login: ['/login', 'login'],
+
   
   Reset_Password: ['/reset-pass', "lock_open"],
   

@@ -26,8 +26,6 @@
 <div v-if="loginLoading"><h1>Loading.....</h1></div>
 <div v-if="loginError"> <h1>Error Occured</h1></div>
 <div v-if="data">
-  <h3>Wilkommen</h3>
-  <!-- <p  v-for="token in data">{{token.value}}</p> -->
 </div>
 </main>
 </template>
@@ -37,7 +35,9 @@ import { ref } from 'vue';
 import { useMutation} from '@vue/apollo-composable';
 import { getAuth } from '@/mutations';
 import { userStore } from '@/stores/user';
-
+// import Cookies from 'universal-cookie';
+import { RouterLink, useRouter } from 'vue-router';
+import { all_posts } from '../../queries';
 export default{
 
   setup(){
@@ -45,21 +45,26 @@ export default{
     const password = ref("")
     const store = userStore()
 
+    // const cookies = new Cookies()
+    const router = useRouter()
 
     const {mutate: login, loading: loginLoading, error:loginError, onDone, data} = useMutation(getAuth, ()=>({
       variables: {
         username: username.value,
         password: password.value,
-
-      }
+      },
+      refetchQueries: [
+        all_posts,
+        'allPosts'
+      ]
     }))
-
     const {token, user } = store
 
 
     onDone(()=>{
-      store.setToken(data.tokenAuth.token)
-      store.setUser(data.tokenAuth.user)
+      store.setToken(data.token)
+      store.setUser(data.user)
+      
     })
 
     return {

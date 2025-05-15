@@ -6,6 +6,7 @@ import { useMutation } from '@vue/apollo-composable';
 import Base_form from '../../components/base_form.vue';
 import login from './Login.vue';
 import { create_user, getAuth } from '@/mutations';
+import { userStore } from '../../stores/user';
 
 
 
@@ -19,6 +20,7 @@ export default {
     const username = ref("")
     const email = ref("")
     const password = ref("")
+    const token_store = userStore()
 
     const { mutate: createUser, loading, data, error,  onDone } = useMutation(create_user, () => ({ 
       variables: {

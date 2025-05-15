@@ -1,39 +1,17 @@
 <script>
+import { all_categories } from '../../queries'
 
 export default{
     setup () {
-        const {result, loading, error } = useQuery(gql`
-        query Queries {
-        allCategories {
-          id
-          category {
-            slug
-          }
-          content
-          featuredImage
-          isFeatured
-          user {
-            username
-          }
-          title
-        }
-}`)
+        const {result, loading, error } = useQuery(all_categories)
+        const categories = computed(() => result.value?.allCategories ?? [])
 
-
-// function fullT(sevice, servicePort, path){
-//   var full_t = `http://${service}:${servicePort}/${path}`
-//   return full_t
-// }
-
-const posts = computed(() => result.value?.allPosts ?? [])
-
-watch(result, value => {
-  console.log(value)
-
-})
+    watch(categories, value => {
+      console.log(value)
+    })
 
 return {
-  posts,
+  categories,
   loading, 
   error,
   result,
@@ -46,21 +24,21 @@ return {
 </script>
 
 <template>
-    <div class="flex flex-col place-content-center place-item-center">
-        <div class="py-8 border-b-2">
-            <h1 class="text-5xl font-extrabold">All Categories</h1>
-        </div>
-        <div class="flex flex-wrap py-8">
-            <router-link v-for="category in allCategories"
-            :key="category.name"
-            :to="`/category/${category.slug}`">{{ category.name }}
-              
-            </router-link>
-        </div>
+  <div class="flex flex-col place-content-center place-items-center">
+    <div class="py-8 border-b-2">
+      <h1 class="text-5xl font-extrabold">All Categories</h1>
     </div>
-
-
+    <div class="flex flex-wrap py-8">
+      <router-link
+        v-for="category in categories"
+        :key="category.name"
+        class=". . ."
+        :to="`/category/${category.slug}`">{{ category.name }}</router-link
+      >
+    </div>
+  </div>
 </template>
+
 
 <style lang="scss" scoped>
 

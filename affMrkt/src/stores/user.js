@@ -9,14 +9,8 @@ export const userStore = defineStore('user', ()=>{
     // getters 
     const getToken = computed(()=> tokenJWT.value)
     const getUser = computed(()=> {
-        if(!user.value){
-            return null
-        }try{
-            return JSON.parse(user.value)
-        }catch(error){
-            console.error("Error parsing user data from localstorage:", error )
-            return null
-        }
+        JSON.parse(user.value)
+    
     })
 
     // Actions
@@ -35,7 +29,7 @@ export const userStore = defineStore('user', ()=>{
         localStorage.removeItem('token')
     }
 
-    function setUSer(user){
+    function setUser(user){
         user.value = JSON.stringify(user)
         localStorage.setItem('user', user.value)
     }

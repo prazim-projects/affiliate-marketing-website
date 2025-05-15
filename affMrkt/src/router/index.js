@@ -29,8 +29,8 @@ const router = createRouter({
       component: TagView
     },
     {
-      path: '/catagories',
-      name: "Categories",
+      path: '/catagories/:category',
+      name: "Category",
       component: AllCategoriesView
     },
     {
@@ -60,7 +60,10 @@ const router = createRouter({
     {
       path: '/posts',
       name: 'posts',
-      component: PostView
+      component: PostView,
+      // meta: {
+      //   requiresAuth: true,
+      // }
     },
     {
       path: '/reset-pass',
@@ -68,6 +71,14 @@ const router = createRouter({
       component: Reset
     },
   ],
+})
+
+
+// routes requiring auth are redirected to login-page
+router.beforeEach((to, from) => {
+  if(to.meta.requiresAuth && to.name !=='login-page'){
+    return { name: 'login-page'}
+  }
 })
 
 export default router

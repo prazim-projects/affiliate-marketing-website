@@ -17,6 +17,29 @@ export const all_posts =  gql`
         }
 }`
 
+export const all_categories = gql`
+    query Queries{
+      allCategories {
+    name
+  }
+ }`
+
+ export const post_by_category = gql `
+  query Queries($category: String!){
+    postsByCategory(category: $category) {
+      content
+      createdAt
+      featuredImage
+      id
+      isFeatured
+      likes {
+        id
+      }
+    }
+  }
+ 
+ `
+
 export const site_info = gql`
 query Queries{
     site{
