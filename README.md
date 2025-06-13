@@ -130,17 +130,23 @@ Available operations:
 
 ## 📸 Screenshots
 
-### Homepage
+### User Interface
 ![Vue App Homepage](screenshots/vue-homepage.png)
 *Modern and responsive homepage with dynamic content loading*
 
-### GraphQL Playground
-![GraphQL Playground](screenshots/graphql_mutations.png)
-*Interactive GraphQL playground for testing queries and mutations*
+### GraphQL Operations
 
-### Dynamic Queries
+#### Queries
 ![Dynamic GraphQL Query](screenshots/dynamic-graphql-query.png)
 *Real-time data fetching and display using GraphQL queries*
+
+#### Mutations
+![GraphQL Mutations](screenshots/graphql_mutations.png)
+*Interactive GraphQL playground demonstrating user authentication and data mutations*
+
+### State Management
+![GraphQL Playground](screenshots/webApp_flow.mp4)
+*Pinia store implementation for managing user authentication and application state*
 
 ## 🔒 Security
 
