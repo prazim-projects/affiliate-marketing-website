@@ -130,9 +130,17 @@ Available operations:
 
 ## 📸 Screenshots
 
-* `vue-homepage.png` – Vue app homepage
-* `dynamic-graphql-query.png` – affiliate listing posts
-* `graphql_mutations.png` – GraphQL playground (queries and mutations)
+### Homepage
+![Vue App Homepage](screenshots/vue-homepage.png)
+*Modern and responsive homepage with dynamic content loading*
+
+### GraphQL Playground
+![GraphQL Playground](screenshots/graphql_mutations.png)
+*Interactive GraphQL playground for testing queries and mutations*
+
+### Dynamic Queries
+![Dynamic GraphQL Query](screenshots/dynamic-graphql-query.png)
+*Real-time data fetching and display using GraphQL queries*
 
 ## 🔒 Security
 
