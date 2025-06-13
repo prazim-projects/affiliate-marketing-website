@@ -4,7 +4,7 @@ media
 
 .sqlite3
 
-.env
+.env_dev
 ./affMrkt/node_modules
 ./affmrkt/.vscode
 affmrkt_backend/mediafiles/site/logo/*

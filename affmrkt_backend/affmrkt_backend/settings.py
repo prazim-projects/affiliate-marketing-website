@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv('.env_dev')
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z+ms(#i-503k2$th7e2kylqgh*4=98ai0n!)8+0ytgz&%=uvwa'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -58,7 +63,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = ("http://127.0.0.1:5173",'http://localhost:5173', 'http://localhost:5174', 'http://127.0.0.1:5174') #allows vuejs devt server 
+CORS_ORIGIN_WHITELIST = tuple(os.getenv('CORS_ORIGIN_WHITELIST', '').split(','))
 
 ROOT_URLCONF = 'affmrkt_backend.urls'
 
@@ -99,11 +104,11 @@ WSGI_APPLICATION = 'affmrkt_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog_db' ,
-        'USER': 'root',
-        'PASSWORD': 'Wagw44n2017',
-        'HOST': 'localhost',
-        'PORT' : '3306',
+        'NAME': os.getenv('DB_NAME') ,
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT' : os.getenv('DB_PORT'),
     }
 }
 
@@ -126,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
 
 
 AUTHENTICATION_BACKENDS = [

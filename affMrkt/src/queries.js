@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const all_posts =  gql`
-        query Queries {
+        query getPost {
         allPosts {
           id
           category {
@@ -18,14 +18,14 @@ export const all_posts =  gql`
 }`
 
 export const all_categories = gql`
-    query Queries{
+    query getAllCategories{
       allCategories {
     name
   }
  }`
 
- export const post_by_category = gql `
-  query Queries($category: String!){
+export const post_by_category = gql `
+  query getPostWCategory($category: String!){
     postsByCategory(category: $category) {
       content
       createdAt
@@ -41,7 +41,7 @@ export const all_categories = gql`
  `
 
 export const site_info = gql`
-query Queries{
+query getSite{
     site{
         name
         description

@@ -1,28 +1,50 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router';
+import { userStore } from '@/stores/user';
 
+
+const store = userStore()
+const isAuthenticated = computed(() => store.isAuthenticated)
 
 const tabs = ref({
   Home: ['/','home' ],
   About: ['/about', 'info'],
   Posts: ['/posts', 'linked_services'],
-  // Categories: ['`/Categories', ''],
-  Register: ['/register', 'account_circle'],
-  Login: ['/login', 'login'],
-
-  
   Reset_Password: ['/reset-pass', "lock_open"],
-  
-  
 })
 
+
+const authTabs = computed(() => {
+  if(isAuthenticated.value){
+    return {
+      ...tabs.value,
+      Profile: [`/profile/${store.getUser.id}`, 'account_circle'],
+      Logout: ['/logout', 'logout']
+    }
+  } else {
+    return {
+      ...tabs.value,
+    Register: ['/register', 'account_circle'],
+    Login: ['/login', 'login'],
+    Reset_Password: ['/reset-pass', "lock_open"],
+    }
+  }
+})
 
 const expanded = ref(true)
 
 const toggleMenu = () => {
   expanded.value = !expanded.value
 }
+
+
+const handleLogout = () => {
+  if (isAuthenticated.value) {
+    store.clearAuth()
+  }
+}
+
 </script>
 
 <template>
@@ -38,13 +60,14 @@ const toggleMenu = () => {
       </button>
     </div>
     <h3>Pages</h3>
-    <div  class="menu" v-for="(value, key) in tabs">
+    <div  class="menu" v-for="(value, key) in authTabs">
       <router-link class="button" :to="value[0]">
         <span class="material-icons"> {{ value[1] }}</span>
         <a class="text">{{ key }}</a>
       </router-link>
     </div>
   </aside>
+
 
   
 </template>

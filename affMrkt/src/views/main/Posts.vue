@@ -1,9 +1,11 @@
 <script>
-import { computed, watch} from 'vue';
+import { computed, watch, onMounted} from 'vue';
 import { useQuery } from '@vue/apollo-composable';
 import { all_posts } from '@/queries'
 import Content from '../../components/Content.vue';
 import Category from '../main/Category.vue';
+import { userStore } from '@/stores/user';
+import { useRouter } from 'vue-router';
 
 export default {
   components : {
@@ -12,21 +14,31 @@ export default {
   },
 
   setup () {
+    const router = useRouter()
+    const user = userStore()
+
+    // check authentication
+    onMounted(()=>{
+      if(!user.isAuthenticated) {
+        router.push('/login')
+      }
+    })
+
+
     const {result, loading, error } = useQuery(all_posts)
+    const posts = computed(() => result.value?.allPosts ?? [])
+    
+    watch(result, value => {
+      console.log(value)
+    })
 
-const posts = computed(() => result.value?.allPosts ?? [])
+    
 
-watch(result, value => {
-  console.log(value)
-
-})
-
-
-return {
-  posts,
-  loading, 
-  error,
-  result,
+  return {
+    posts,
+    loading, 
+    error,
+    result,
 }
 
 }

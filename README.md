@@ -5,6 +5,8 @@
 * Frontend: Vue 3 (Composition API)
 * Backend: Django (Graphene)
 * Database: MySQL
+* State Management: Pinia
+* Authentication: JWT
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/prazim-projects/affiliate-marketing-website)
 ![GitHub repo size](https://img.shields.io/github/repo-size/prazim-projects/affiliate-marketing-website)
@@ -24,20 +26,54 @@ Follow these steps to run the project locally:
 2. **Set up the Python environment:**
 
    ```bash
-   pipenv sync
+   # Install pipenv if you haven't already
+   pip install pipenv
+
+   # Install Python 3.11 if you haven't already
+   # Windows: Download from python.org
+   # Linux: sudo apt-get install python3.11
+   # macOS: brew install python@3.11
+
+   # Create and activate virtual environment
+   pipenv --python 3.11
+   pipenv install
    pipenv shell
    ```
 
-3. **Configure the database:**
+3. **Configure environment variables:**
 
-   * Update your **`settings.py`** file with your MySQL username and password.
+   * Copy `.env.example` to `.env` in both backend and frontend directories
+   * Update the values in `.env` files with your configuration
 
-4. **Start MySQL server and create the database.**
+   Backend (affmrkt_backend/.env):
+   ```env
+   SECRET_KEY=your-secret-key
+   DEBUG=True
+   DB_NAME=your_database_name
+   DB_USER=your_database_user
+   DB_PASSWORD=your_database_password
+   ```
+
+   Frontend (affMrkt/.env):
+   ```env
+   VITE_BACKEND_URL=http://localhost:8000
+   VITE_GRAPHQL_URL=http://localhost:8000/graphql/
+   ```
+
+4. **Start MySQL server and create the database:**
+
+   ```bash
+   # Login to MySQL
+   mysql -u root -p
+
+   # Create database
+   CREATE DATABASE blog_db;
+   ```
 
 5. **Run Django migrations:**
 
    ```bash
-   cd backend
+   cd affmrkt_backend
    python manage.py makemigrations
    python manage.py migrate
    ```
@@ -51,25 +87,46 @@ Follow these steps to run the project locally:
 7. **Start the Vue frontend development server:**
 
    ```bash
-   cd frontend
+   cd affMrkt
    npm install
    npm run dev
    ```
 
-   ![Homepage](screenshots/vue-homepage.png)
+## 🛠️ Features
+
+* **Authentication**
+  * JWT-based authentication
+  * Protected routes
+  * Token refresh mechanism
+
+* **Data Management**
+  * GraphQL API with queries and mutations
+  * Client-side caching with Pinia
+  * Optimistic UI updates
+
+* **User Interface**
+  * Responsive design
+  * Dynamic sidebar navigation
+  * Featured posts section
+  * Category and tag filtering
 
 ## 🧪 GraphQL API
 
 Interact with the API at:
 [http://localhost:8000/graphql](http://localhost:8000/graphql)
-Supports both **queries** and **mutations**.
-![GraphQL Playground](screenshots/graphql_mutations.png)
 
-## 🛠️ In Progress
-
-* JWT authentication with `graphql_jwt`
-* State management with `Pinia`
-* Use of environment variables for configuration
+Available operations:
+* Queries:
+  * `allPosts`
+  * `post`
+  * `categories`
+  * `tags`
+* Mutations:
+  * `createPost`
+  * `updatePost`
+  * `deletePost`
+  * `login`
+  * `register`
 
 ## 📸 Screenshots
 
@@ -77,12 +134,27 @@ Supports both **queries** and **mutations**.
 * `dynamic-graphql-query.png` – affiliate listing posts
 * `graphql_mutations.png` – GraphQL playground (queries and mutations)
 
+## 🔒 Security
 
+* Environment variables for sensitive data
+* JWT token-based authentication
+* CORS configuration
+* Protected API endpoints
 
+## 🚀 Performance
 
+* Client-side caching with Pinia
+* Optimized image loading
+* Lazy-loaded components
+* Efficient GraphQL queries
 
-![Graphql_Query](screenshots/dynamic-graphql-query.png)
+## 🤝 Contributing
 
-
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 Feel free to contribute or open issues as the project evolves!
+

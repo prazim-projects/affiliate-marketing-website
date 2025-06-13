@@ -1,12 +1,12 @@
 <template>
   
 <main>
-<form class="form-signin w-100 m-auto">
+<form @submit.prevent ="login" class="form-signin w-100 m-auto">
   <img class="mb-4" src="../../assets/logoAff.png" alt="" width="72" height="57">
   <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
   <div class="form-floating">
-    <input type="username" class="form-control" id="floatingInput" placeholder="Abebe-Egele" v-model="username"  required>
+    <input type="text" class="form-control" id="floatingInput" placeholder="Abebe-Egele" v-model="username"  required>
     <label for="floatingInput">username</label>
   </div>
   <div class="form-floating">
@@ -20,12 +20,13 @@
       Remember me
     </label>
   </div>
-  <button class="btn btn-primary w-100 py-2"  @click="login">Sign in</button>
+  <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
 </form>
 
 <div v-if="loginLoading"><h1>Loading.....</h1></div>
 <div v-if="loginError"> <h1>Error Occured</h1></div>
 <div v-if="data">
+  <router-link to="/posts">Go to posts</router-link>
 </div>
 </main>
 </template>
@@ -33,40 +34,40 @@
 <script>
 import { ref } from 'vue';
 import { useMutation} from '@vue/apollo-composable';
-import { getAuth } from '@/mutations';
 import { userStore } from '@/stores/user';
-// import Cookies from 'universal-cookie';
+import { getAuth } from '@/mutations';
 import { RouterLink, useRouter } from 'vue-router';
 import { all_posts } from '../../queries';
+
 export default{
 
   setup(){
     const username = ref("")
     const password = ref("")
-    const store = userStore()
 
     // const cookies = new Cookies()
     const router = useRouter()
+    const store = userStore()
 
-    const {mutate: login, loading: loginLoading, error:loginError, onDone, data} = useMutation(getAuth, ()=>({
+    const {mutate: login, reset, loading: loginLoading, error:loginError, onDone, data} = useMutation(getAuth, ()=>({
       variables: {
         username: username.value,
         password: password.value,
       },
-      refetchQueries: [
-        all_posts,
-        'allPosts'
-      ]
     }))
-    const {token, user } = store
 
-
-    onDone(()=>{
-      store.setToken(data.token)
-      store.setUser(data.user)
-      
+ 
+    onDone((result)=>{
+      console.log('Login response:', result.data)
+      // Assuming the response structure is { data: { getAuth: { token, user } } }
+      const { tokenAuth } = result.data
+      console.log(tokenAuth.token)
+      store.setToken(tokenAuth.token)
+      store.setUser(tokenAuth.user)
+      router.push('/posts')
     })
 
+    
     return {
       loginLoading,
       username,
@@ -74,8 +75,7 @@ export default{
       login,
       loginError,
       data,
-      user,
-      token
+      reset,
     }
   }
 }

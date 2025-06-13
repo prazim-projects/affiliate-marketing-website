@@ -6,37 +6,37 @@ export const userStore = defineStore('user', ()=>{
     const tokenJWT = ref(localStorage.getItem('token')||null)
     const user = ref(localStorage.getItem("user")|| null)
 
-    // getters 
-    const getToken = computed(()=> tokenJWT.value)
-    const getUser = computed(()=> {
-        JSON.parse(user.value)
-    
-    })
-
-    // Actions
-    function setToken(token){
-        // update auth token value
+    // actions
+    function setToken(token) {
         tokenJWT.value = token
-        if(token){
-            localStorage.setItem('token', tokenJWT.value)
-        }else{
-            localStorage.remove('token')
-        }
+        localStorage.setItem('token', token)
     }
 
-    function removeToken(){
+    function setUser(userData) {
+        user.value = JSON.stringify(userData)
+        localStorage.setItem('user', JSON.stringify(userData))
+    }
+
+    function clearAuth() {
         tokenJWT.value = null
-        localStorage.removeItem('token')
-    }
-
-    function setUser(user){
-        user.value = JSON.stringify(user)
-        localStorage.setItem('user', user.value)
-    }
-
-    function removeUser(){
         user.value = null
+        localStorage.removeItem('token')
         localStorage.removeItem('user')
     }
 
+    // getters 
+    const isAuthenticated = computed(() => !!tokenJWT.value)
+    const getUser = computed(() => user.value ? JSON.parse(user.value) : null)
+    const getToken = computed(() => tokenJWT.value)
+
+    return {
+        tokenJWT,
+        user,
+        setToken,
+        setUser,
+        clearAuth,
+        isAuthenticated,
+        getUser,
+        getToken
+    }
 })

@@ -7,6 +7,7 @@ import TagView from "@/views/main/Tag.vue";
 import AllCategoriesView from "@/views/main/AllCategories.vue";
 import AllTagsView from "@/views/main/AllTags.vue";
 import PostView from "@/views/main/posts.vue"
+import { userStore } from '@/stores/user'
 
 
 
@@ -61,9 +62,25 @@ const router = createRouter({
       path: '/posts',
       name: 'posts',
       component: PostView,
-      // meta: {
-      //   requiresAuth: true,
-      // }
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/profile/:id',
+      name: 'profile',
+      component: () => import('../views/user/Profile.vue'),
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('@/views/user/logout.vue'),
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: '/reset-pass',
@@ -76,7 +93,8 @@ const router = createRouter({
 
 // routes requiring auth are redirected to login-page
 router.beforeEach((to, from) => {
-  if(to.meta.requiresAuth && to.name !=='login-page'){
+  const store = userStore()
+  if(to.meta.requiresAuth && !store.isAuthenticated){
     return { name: 'login-page'}
   }
 })
