@@ -6,7 +6,7 @@ import CategoryView from "@/views/main/Category.vue";
 import TagView from "@/views/main/Tag.vue";
 import AllCategoriesView from "@/views/main/AllCategories.vue";
 import AllTagsView from "@/views/main/AllTags.vue";
-import PostView from "@/views/main/posts.vue"
+import PostView from "@/views/main/Posts.vue"
 import { userStore } from '@/stores/user'
 
 
