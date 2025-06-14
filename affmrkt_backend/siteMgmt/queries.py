@@ -11,7 +11,7 @@ class Query(graphene.ObjectType):
     posts_by_category = graphene.List(types.PostType, category=graphene.Int())
     posts_by_tag = graphene.List(types.PostType, tag=graphene.Int())
     posts_by_slug = graphene.List(types.PostType, slug=graphene.String())
-
+    
 
     def resolve_site(root, info):
         return (

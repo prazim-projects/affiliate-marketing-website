@@ -66,13 +66,12 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     content = models.TextField(max_length=2000, default='lorem ipsum dolor sit amet ...', null=False)
-    featured_image = models.ImageField(
-        upload_to='posts/featured_images/%Y/%m/%d/')
+    featured_image = models.ImageField(upload_to='posts/featured_images/%Y/%m/%d/')
     is_published = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateField(auto_now=True)
-
+    affiliate_link = models.URLField(max_length=500)
     # Each post can receive likes from multiple users, and each user can like multiple posts
     likes = models.ManyToManyField(User, related_name='post_like')
 
@@ -89,6 +88,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    @property
     def display_conent(self):
         if len(self.content) > 50:
             return self.content[:50] + '...'

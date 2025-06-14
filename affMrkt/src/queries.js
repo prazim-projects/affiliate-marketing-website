@@ -10,6 +10,8 @@ export const all_posts =  gql`
           content
           featuredImage
           isFeatured
+          snapView
+          affiliateLink
           user {
             username
           }

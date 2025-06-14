@@ -17,14 +17,14 @@ class TagType(DjangoObjectType):
         fields = ('name', 'slug', 'category')
 
 class PostType(DjangoObjectType):
-    featured_image_url = graphene.String()
-
+    # featured_image_url = graphene.String()
+    snapView = graphene.String()
     class Meta:
         model = Post
         fields = "__all__"
-
-    def resolve_featured_image_url(self, info):
-        return self.featured_image_url
+    
+    def resolve_snapView(self, info):
+        return self.display_conent
 
 class CategoryType(DjangoObjectType):
     class Meta:

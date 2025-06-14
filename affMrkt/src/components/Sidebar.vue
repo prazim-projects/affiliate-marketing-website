@@ -77,7 +77,11 @@ const handleLogout = () => {
  aside{
   display: flex;
   flex-direction: column;
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 80vh;
+  z-index: 1000;
   background-color: var(--dark);
   color: var(--light);
   width: calc(4rem + var(--sidebar-width-min));

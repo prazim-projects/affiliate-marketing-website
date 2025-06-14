@@ -67,6 +67,8 @@ export default {
             :content="post.content"
             :featuredImage="post.featuredImage"
             :author="post.user.username"
+            :snapView="post.snapView"
+            :affiliateLink="post.affiliateLink"
             />
           </div>
         </div>
