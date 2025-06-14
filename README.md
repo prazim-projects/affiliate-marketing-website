@@ -128,7 +128,7 @@ Available operations:
   * `login`
   * `register`
 
-## 📸 Screenshots
+## 📸 Screenshots & Demo
 
 ### User Interface
 ![Vue App Homepage](screenshots/vue-homepage.png)
@@ -144,9 +144,12 @@ Available operations:
 ![GraphQL Mutations](screenshots/graphql_mutations.png)
 *Interactive GraphQL playground demonstrating user authentication and data mutations*
 
-### State Management
-![GraphQL Playground](screenshots/webApp_flow.mp4)
-*Pinia store implementation for managing user authentication and application state*
+### State Management & Application Flow
+<video width="100%" controls>
+  <source src="screenshots/webApp_flow.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+*Application flow demonstrating Pinia store implementation for managing user authentication and application state*
 
 ## 🔒 Security
 
