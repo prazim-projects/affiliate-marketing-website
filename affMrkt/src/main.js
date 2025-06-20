@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { setContext } from '@apollo/client/link/context'
 
 
-const apiURL = process.env.VITE_API_URL
+const apiURL = import.meta.env.VITE_API_URL
 
 
 
