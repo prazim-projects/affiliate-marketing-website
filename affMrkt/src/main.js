@@ -11,9 +11,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { setContext } from '@apollo/client/link/context'
 
 
+const apiURL = process.env.VITE_API_URL
+
+
 
 const httpLink = new createHttpLink({
-    uri: 'http://localhost:8000/graphql'
+    uri: `${apiURL}/graphql`
 })
 
 const authLink = setContext((_, { headers}) => {
