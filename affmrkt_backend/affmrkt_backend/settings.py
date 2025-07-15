@@ -14,10 +14,10 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import django
+from django.utils.translation import gettext
 # Load environment variables from .env file
 load_dotenv('.env_dev')
 
-from django.utils.translation import gettext
 django.utils.translation.ugettext = gettext
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
