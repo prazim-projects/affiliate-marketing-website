@@ -9,3 +9,5 @@ media
 ./affmrkt/.vscode
 affmrkt_backend/mediafiles/site/logo/*
 affmrkt_backend/time*
+affmrkt_backend/.env.dev
+affmrkt_backend/.env.dev~

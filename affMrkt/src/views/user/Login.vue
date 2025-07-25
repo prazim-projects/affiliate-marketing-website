@@ -45,9 +45,6 @@ export default{
     const username = ref("")
     const password = ref("")
 
-    // const cookies = new Cookies()
-    const router = useRouter()
-    const store = userStore()
 
     const {mutate: login, reset, loading: loginLoading, error:loginError, onDone, data} = useMutation(getAuth, ()=>({
       variables: {

@@ -9,11 +9,8 @@ const userId = ref(store.getUser.id)
 const userProfile = ref(null)
 
 onMounted(async () => {
-  // You can add logic here to fetch user profile data
-  // For now, we'll just display the user ID
   userProfile.value = {
     id: userId.value,
-    // Add more user profile data here when you implement the backend
   }
 })
 </script>
@@ -23,7 +20,7 @@ onMounted(async () => {
     <h1>User Profile</h1>
     <div v-if="userProfile" class="profile-content">
       <p>User ID: {{ userProfile.id }}</p>
-      <!-- Add more profile information here -->
+      <!-- profile information place -->
     </div>
     <div v-else>
       <p>Loading profile...</p>

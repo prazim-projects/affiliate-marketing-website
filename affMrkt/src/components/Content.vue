@@ -4,13 +4,7 @@ import { computed, ref } from 'vue'
 const props = defineProps(['title','category','content','id','featuredImage', 'user', 'snapView', 'affiliateLink'])
 const isExpanded = ref(false)
 const apiURL = import.meta.env.VITE_API_URL
-const imageUrl = computed(() => {
-    if (!props.featuredImage) return ''
-    // If the image path already starts with http, return as is
-    if (props.featuredImage.startsWith('http')) return props.featuredImage
-    // Otherwise, prepend the backend URL
-    return `${apiURL}/${props.featuredImage}`
-})
+const imageUrl =(${apiURL}/${props.featuredImage})
 
 const expand = () => {
     isExpanded.value = !isExpanded.value
